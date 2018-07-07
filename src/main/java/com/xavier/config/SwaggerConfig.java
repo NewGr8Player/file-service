@@ -27,12 +27,12 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("FastDFS Client API")
-                .description("FastDFS Rest API")
+                .title("File Service API")
+                .description("File Service FastDFS BASED API ")
                 .contact("NewGr8Player")
-                .version("0.1.RC")
+                .version("0.0.1-SNAPSHOT")
                 .license("MIT License")
-                .licenseUrl("https://github.com/NewGr8Player/Fastdfs-Demo/blob/master/LICENSE")
+                .licenseUrl("https://github.com/NewGr8Player/file-service/blob/master/LICENSE")
                 .build();
     }
 
