@@ -8,6 +8,22 @@ import java.util.List;
 import java.util.Map;
 
 public class FileUtil {
+
+	/**
+	 * 文件名
+	 */
+	public static final String FILE_NAME = "fileName";
+
+	/**
+	 * 文件大小
+	 */
+	public static final String FILE_SIZE = "fileSize";
+
+	/**
+	 * 文件上传时间
+	 */
+	public static final String UPLOAD_DATE_TIME = "uploadDateTime";
+
 	/**
 	 * 图片类型
 	 */

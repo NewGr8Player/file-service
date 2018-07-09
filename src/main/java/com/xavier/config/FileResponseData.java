@@ -2,6 +2,7 @@ package com.xavier.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.xavier.common.util.DateUtil;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -68,7 +69,7 @@ public class FileResponseData {
      * Http URL
      */
     @JsonInclude(Include.NON_NULL)
-    private String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    private String date = DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24);
 
     /**
      * Http Token
