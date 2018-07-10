@@ -1,14 +1,11 @@
 package com.xavier.api;
 
-import com.github.tobato.fastdfs.domain.FileInfo;
-import com.github.tobato.fastdfs.domain.MataData;
 import com.xavier.common.FastDFSClient;
 import com.xavier.common.util.FileUtil;
 import com.xavier.config.FastDFSException;
 import com.xavier.config.FileResponseData;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Set;
+import java.net.URLEncoder;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/")
@@ -49,18 +47,15 @@ public class FileController {
 
 	@ApiOperation(value = "下载文件")
 	@GetMapping(path = "/download/file/sample")
-	public FileResponseData downloadFileSample(
+	public void downloadFileSample(
 			@ApiParam(name = "group", value = "分组", required = true)
 			@RequestParam(name = "group")
 					String group,
 			@ApiParam(name = "path", value = "路径", required = true)
 			@RequestParam(name = "path")
 					String path,
-			@ApiParam(name = "filename", value = "路径")
-			@RequestParam(name = "filename", required = false)
-					String filename,
 			HttpServletResponse response) {
-		return downloadSample(group, path, filename, response);
+		downloadSample(group, path, response);
 	}
 
 	/**
@@ -101,27 +96,18 @@ public class FileController {
 	 * @param response
 	 * @return
 	 */
-	private FileResponseData downloadSample(String group, String path, String fileName, HttpServletResponse response) {
-		FileResponseData responseData = new FileResponseData();
+	private void downloadSample(String group, String path, HttpServletResponse response) {
 		try {
-			Set<MataData> mataData = this.fastDFSClient.getMataData(group, path);
-			if (StringUtils.isBlank(fileName)) {//TODO 获取文件名
-				fileName = String.valueOf(mataData);
-			}
-			response.setHeader("content-type", "application/octet-stream");
-			response.setContentType("application/octet-stream");
-			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+			Map mataData = this.fastDFSClient.getMataData(group, path);
+			String fileName = (String) mataData.get(FileUtil.FILE_NAME);
+			String contentType = FileUtil.EXT_MAPS.get(FileUtil.getFilenameSuffix(fileName));
+			String encoderName = URLEncoder.encode(fileName, "UTF-8").replace("+", "%20").replace("%2B", "+");
+			response.setHeader("Content-Disposition", "attachment;filename=\"" + encoderName + "\"");
+			response.setContentType(contentType + ";charset=UTF-8");
+			response.setHeader("Accept-Ranges", "bytes");
 			response.getOutputStream().write(this.fastDFSClient.downloadFile(group, path));
 		} catch (FastDFSException e) {
-			responseData.setSuccess(false);
-			responseData.setCode(e.getCode());
-			responseData.setMessage(e.getMessage());
-		} catch (Exception e) {
-			responseData.setSuccess(false);
-			responseData.setCode(e.getClass().toString());
-			responseData.setMessage(e.getMessage());
+		} catch (IOException e) {
 		}
-
-		return responseData;
 	}
 }
