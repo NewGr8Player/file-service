@@ -1,5 +1,6 @@
 package com.xavier.api;
 
+import com.github.tobato.fastdfs.domain.StorePath;
 import com.xavier.common.FastDFSClient;
 import com.xavier.common.util.FileUtil;
 import com.xavier.config.FastDFSException;
@@ -69,12 +70,14 @@ public class FileController {
 	private FileResponseData uploadSample(MultipartFile file, HttpServletRequest request) {
 		FileResponseData responseData = new FileResponseData();
 		try {
-			String filepath = this.fastDFSClient.uploadFileWithMultipart(file);
+			StorePath storePath = this.fastDFSClient.uploadFileWithMultipart(file);
 			responseData.setFileName(file.getOriginalFilename());
-			responseData.setFilePath(filepath);
+			responseData.setFileGroup(storePath.getGroup());
+			responseData.setFilePath(storePath.getPath());
+			responseData.setFullPath(storePath.getFullPath());
 			responseData.setFileSize(file.getSize());
 			responseData.setFileType(FileUtil.EXT_MAPS.get(FileUtil.getFilenameSuffix(file.getOriginalFilename())));
-			responseData.setHttpUrl(fileServerAddr + FileUtil.SEPARATOR + filepath);
+			responseData.setHttpUrl(fileServerAddr + FileUtil.SEPARATOR + storePath.getFullPath());
 		} catch (FastDFSException e) {
 			responseData.setSuccess(false);
 			responseData.setCode(e.getCode());

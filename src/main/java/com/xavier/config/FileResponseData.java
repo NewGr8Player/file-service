@@ -3,11 +3,9 @@ package com.xavier.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.xavier.common.util.DateUtil;
-import lombok.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 上传文件后的数据返回对象，便于前台获取数据.
@@ -17,67 +15,79 @@ import java.util.Date;
 @NoArgsConstructor
 public class FileResponseData {
 
-    /**
-     * 返回状态编码
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String code;
+	/**
+	 * 返回状态编码
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String code;
 
-    /**
-     * 返回信息
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String message;
+	/**
+	 * 返回信息
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String message;
 
-    /**
-     * 成功标识
-     */
-    @JsonInclude
-    private boolean success = true;
+	/**
+	 * 成功标识
+	 */
+	@JsonInclude
+	private boolean success = true;
 
-    /**
-     * 文件路径
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String filePath;
+	/**
+	 * 文件所在分组
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String fileGroup;
 
-    /**
-     * 文件名称
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String fileName;
+	/**
+	 * 文件路径
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String filePath;
 
-    /**
-     * 文件类型
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String fileType;
+	/**
+	 * 完整文件路径
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String fullPath;
 
-    /**
-     * 文件类型
-     */
-    @JsonInclude(Include.NON_NULL)
-    private Long fileSize;
+	/**
+	 * 文件名称
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String fileName;
 
-    /**
-     * Http URL
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String httpUrl;
+	/**
+	 * 文件类型
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String fileType;
 
-    /**
-     * Http URL
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String date = DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24);
+	/**
+	 * 文件类型
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private Long fileSize;
 
-    /**
-     * Http Token
-     */
-    @JsonInclude(Include.NON_NULL)
-    private String token;
+	/**
+	 * Http URL
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String httpUrl;
 
-    public FileResponseData(boolean success) {
-        this.success = success;
-    }
+	/**
+	 * Http URL
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String date = DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24);
+
+	/**
+	 * Http Token
+	 */
+	@JsonInclude(Include.NON_NULL)
+	private String token;
+
+	public FileResponseData(boolean success) {
+		this.success = success;
+	}
 }

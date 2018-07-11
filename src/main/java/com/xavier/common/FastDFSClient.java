@@ -2,6 +2,7 @@ package com.xavier.common;
 
 import com.github.tobato.fastdfs.domain.FileInfo;
 import com.github.tobato.fastdfs.domain.MataData;
+import com.github.tobato.fastdfs.domain.StorePath;
 import com.github.tobato.fastdfs.proto.storage.DownloadByteArray;
 import com.github.tobato.fastdfs.service.FastFileStorageClient;
 import com.xavier.common.util.DateUtil;
@@ -36,7 +37,7 @@ public class FastDFSClient {
 	 * @param file MultipartFile
 	 * @return 返回上传成功后的文件路径
 	 */
-	public String uploadFileWithMultipart(MultipartFile file) throws FastDFSException, IOException {
+	public StorePath uploadFileWithMultipart(MultipartFile file) throws FastDFSException, IOException {
 		if (file == null || file.isEmpty()) {
 			throw new FastDFSException(ErrorCode.FILE_ISNULL.CODE, ErrorCode.FILE_ISNULL.MESSAGE);
 		}
@@ -48,8 +49,7 @@ public class FastDFSClient {
 						new MataData(FileUtil.FILE_NAME, file.getOriginalFilename()),
 						new MataData(FileUtil.FILE_SIZE, String.valueOf(file.getSize())),
 						new MataData(FileUtil.UPLOAD_DATE_TIME, DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24))
-				)))
-				.getFullPath();
+				)));
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class FastDFSClient {
 	}
 
 	/**
-	 * 获取
+	 * 获取文件元数据
 	 *
 	 * @param group
 	 * @param path
