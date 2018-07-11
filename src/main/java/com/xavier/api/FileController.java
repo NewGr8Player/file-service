@@ -21,6 +21,11 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Map;
 
+/**
+ * 文件服务RestController
+ *
+ * @author NewGr8Player
+ */
 @RestController
 @RequestMapping(path = "/")
 public class FileController {
@@ -120,9 +125,7 @@ public class FileController {
 		try {
 			StorePath storePath = this.fastDFSClient.uploadFileWithMultipart(file);
 			responseData.setFileName(file.getOriginalFilename());
-			responseData.setFileGroup(storePath.getGroup());
-			responseData.setFilePath(storePath.getPath());
-			responseData.setFullPath(storePath.getFullPath());
+			responseData.setFilePath(storePath.getFullPath());
 			responseData.setFileSize(file.getSize());
 			responseData.setFileType(FileUtil.EXT_MAPS.get(FileUtil.getFilenameSuffix(file.getOriginalFilename())));
 			responseData.setHttpUrl(fileServerAddr + FileUtil.SEPARATOR + storePath.getFullPath());

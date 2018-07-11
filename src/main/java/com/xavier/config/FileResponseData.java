@@ -9,6 +9,8 @@ import lombok.Setter;
 
 /**
  * 上传文件后的数据返回对象，便于前台获取数据.
+ *
+ * @author NewGr8Player
  */
 @Getter
 @Setter
@@ -34,22 +36,10 @@ public class FileResponseData {
 	private boolean success = true;
 
 	/**
-	 * 文件所在分组
-	 */
-	@JsonInclude(Include.NON_NULL)
-	private String fileGroup;
-
-	/**
 	 * 文件路径
 	 */
 	@JsonInclude(Include.NON_NULL)
 	private String filePath;
-
-	/**
-	 * 完整文件路径
-	 */
-	@JsonInclude(Include.NON_NULL)
-	private String fullPath;
 
 	/**
 	 * 文件名称
@@ -64,13 +54,13 @@ public class FileResponseData {
 	private String fileType;
 
 	/**
-	 * 文件类型
+	 * 文件大小(单位:B)
 	 */
 	@JsonInclude(Include.NON_NULL)
 	private Long fileSize;
 
 	/**
-	 * Http URL
+	 * Http URL(仅供测试)
 	 */
 	@JsonInclude(Include.NON_NULL)
 	private String httpUrl;
@@ -79,13 +69,7 @@ public class FileResponseData {
 	 * Http URL
 	 */
 	@JsonInclude(Include.NON_NULL)
-	private String date = DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24);
-
-	/**
-	 * Http Token
-	 */
-	@JsonInclude(Include.NON_NULL)
-	private String token;
+	private String respDate = DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24);
 
 	public FileResponseData(boolean success) {
 		this.success = success;

@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 日期工具类
+ * 日期工具类,拓展时需要保证线程安全
+ *
  * @author NewGr8Player
  */
 public class DateUtil {
@@ -17,7 +18,7 @@ public class DateUtil {
 	/**
 	 * 获得指定格式的当前日期
 	 */
-	public static String getNowDateString(String format){
+	public static String getNowDateString(String format) {
 		return LocalDateTime.now().format(DateTimeFormatter.ofPattern(format));
 	}
 }

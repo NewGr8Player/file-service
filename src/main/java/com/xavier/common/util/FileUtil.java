@@ -7,6 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 文件工具类
+ *
+ * @author NewGr8Player
+ */
 public class FileUtil {
 
 	/**

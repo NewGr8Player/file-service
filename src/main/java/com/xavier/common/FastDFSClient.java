@@ -22,7 +22,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * FastDFS Java API. 文件上传下载主类.
+ * FastDFS Java API. 文件上传下载主类
+ *
+ * @author NewGr8Player
  */
 @Component
 public class FastDFSClient {
