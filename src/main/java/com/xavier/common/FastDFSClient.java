@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +34,7 @@ public class FastDFSClient {
 	 * MultipartFile 上传文件
 	 *
 	 * @param file MultipartFile
-	 * @return 返回上传成功后的文件路径
+	 * @return 返回上传成功后的StorePath对象
 	 */
 	public StorePath uploadFileWithMultipart(MultipartFile file) throws FastDFSException, IOException {
 		if (file == null || file.isEmpty()) {
@@ -55,44 +54,58 @@ public class FastDFSClient {
 	/**
 	 * 下载文件
 	 *
-	 * @param group 所在组
-	 * @param path  所在路径
+	 * @param filePath (groupName/path)
 	 * @return byte[] 字节流
 	 */
-	public byte[] downloadFile(String group, String path) throws FastDFSException {
-		if (StringUtils.isBlank(path)) {
+	public byte[] downloadFile(String filePath) throws FastDFSException {
+		if (StringUtils.isBlank(filePath)) {
 			throw new FastDFSException(ErrorCode.FILE_PATH_ISNULL.CODE, ErrorCode.FILE_PATH_ISNULL.MESSAGE);
 		}
-		return this.fastFileStorageClient.downloadFile(group, path, new DownloadByteArray());
+		StorePath storePath = StorePath.praseFromUrl(filePath);
+		return this.fastFileStorageClient.downloadFile(storePath.getGroup(), storePath.getPath(), new DownloadByteArray());
 	}
 
 	/**
 	 * 查看文件信息
 	 *
-	 * @param group
-	 * @param path
+	 * @param filePath (groupName/path)
 	 * @return
 	 */
-	public FileInfo queryFileInfo(String group, String path) throws FastDFSException {
-		if (StringUtils.isBlank(path)) {
+	public FileInfo queryFileInfo(String filePath) throws FastDFSException {
+		if (StringUtils.isBlank(filePath)) {
 			throw new FastDFSException(ErrorCode.FILE_PATH_ISNULL.CODE, ErrorCode.FILE_PATH_ISNULL.MESSAGE);
 		}
-		return this.fastFileStorageClient.queryFileInfo(group, path);
+		StorePath storePath = StorePath.praseFromUrl(filePath);
+		return this.fastFileStorageClient.queryFileInfo(storePath.getGroup(), storePath.getPath());
 	}
 
 	/**
 	 * 获取文件元数据
 	 *
-	 * @param group
-	 * @param path
-	 * @return
+	 * @param filePath (groupName/path)
+	 * @return 包含文件信息的Map
 	 * @throws FastDFSException
 	 */
-	public Map getMataData(String group, String path) throws FastDFSException {
-		if (StringUtils.isBlank(path)) {
+	public Map getMataData(String filePath) throws FastDFSException {
+		if (StringUtils.isBlank(filePath)) {
 			throw new FastDFSException(ErrorCode.FILE_PATH_ISNULL.CODE, ErrorCode.FILE_PATH_ISNULL.MESSAGE);
 		}
-		Set<MataData> set = this.fastFileStorageClient.getMetadata(group, path);
-		return set.stream().collect(Collectors.toMap(MataData::getName,MataData::getValue));
+		StorePath storePath = StorePath.praseFromUrl(filePath);
+		Set<MataData> set = this.fastFileStorageClient.getMetadata(storePath.getGroup(), storePath.getPath());
+		return set.stream().collect(Collectors.toMap(MataData::getName, MataData::getValue));
+	}
+
+	/**
+	 * 根据文件路径删除文件
+	 *
+	 * @param filePath (groupName/path)
+	 * @throws FastDFSException
+	 */
+	public void deleteFile(String filePath) throws FastDFSException {
+		if (StringUtils.isBlank(filePath)) {
+			throw new FastDFSException(ErrorCode.FILE_PATH_ISNULL.CODE, ErrorCode.FILE_PATH_ISNULL.MESSAGE);
+		}
+		StorePath storePath = StorePath.praseFromUrl(filePath);
+		this.fastFileStorageClient.deleteFile(storePath.getGroup(), storePath.getPath());
 	}
 }
