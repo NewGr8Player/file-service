@@ -89,7 +89,8 @@ public class FileController {
 	@DeleteMapping(value = "/delete/file")
 	public FileResponseData deleteFile(
 			@ApiParam(name = "filePath", value = "路径(groupName/path)", required = true)
-			@RequestParam(name = "filePath") String filePath) {
+			@RequestParam(name = "filePath")
+					String filePath) {
 		FileResponseData responseData = new FileResponseData();
 		try {
 			this.fastDFSClient.deleteFile(filePath);
