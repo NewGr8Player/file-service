@@ -3,11 +3,13 @@ fdfs:
   max_request_size: 1024MB
   so-timeout: 1501
   connect-timeout: 601
-  file_server_addr: 192.168.183.38:8080
   tracker-list:
     - 192.168.183.38:22122
   pool: # apache.pool2
-      max-total: 153
-      max-wait-millis: 102
+    max-total: 153
+    max-wait-millis: 102
+spring:
+  aop:
+    auto: true
 server:
   port: 8081

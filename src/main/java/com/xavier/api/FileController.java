@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,9 +30,6 @@ import java.util.Map;
 public class FileController {
 
 	private final Logger logger = LoggerFactory.getLogger(FileController.class);
-
-	@Value("${fdfs.file_server_addr}")
-	private String fileServerAddr;
 
 	@Autowired
 	private FastDFSClient fastDFSClient;
@@ -129,7 +125,6 @@ public class FileController {
 			responseData.setFilePath(storePath.getFullPath());
 			responseData.setFileSize(file.getSize());
 			responseData.setFileType(FileUtil.EXT_MAPS.get(FileUtil.getFilenameSuffix(file.getOriginalFilename())));
-			responseData.setHttpUrl(fileServerAddr + FileUtil.SEPARATOR + storePath.getFullPath());
 		} catch (FastDFSException e) {
 			responseData.setSuccess(false);
 			responseData.setCode(e.getCode());

@@ -60,12 +60,6 @@ public class FileResponseData {
 	private Long fileSize;
 
 	/**
-	 * Http URL(仅供测试)
-	 */
-	@JsonInclude(Include.NON_NULL)
-	private String httpUrl;
-
-	/**
 	 * Http URL
 	 */
 	@JsonInclude(Include.NON_NULL)
