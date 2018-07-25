@@ -8,8 +8,27 @@ fdfs:
   pool: # apache.pool2
     max-total: 153
     max-wait-millis: 102
+server:
+  port: 8081
 spring:
   aop:
     auto: true
-server:
-  port: 8081
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+    lettuce:
+      shutdown-timeout: 100ms
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-wait: -1ms
+        max-active: 8
+logging:
+  level:
+    com.xavier: INFO
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
