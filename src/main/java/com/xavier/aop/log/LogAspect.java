@@ -19,46 +19,46 @@ import java.util.Map;
 @Component
 public class LogAspect {
 
-	private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-	@Pointcut("execution(public * com.xavier.api.*Controller.*(..))")
-	private void webLog() {
-	}
+    @Pointcut("execution(public * com.xavier.api.*Controller.*(..))")
+    private void webLog() {
+    }
 
-	@Before("webLog()")
-	public void doBefore(JoinPoint joinPoint) throws Throwable {
-		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-		Method method = methodSignature.getMethod();
-		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-		HttpServletRequest request = attributes.getRequest();
-		Map logInfo = new HashMap();
-		logInfo.put("requestPackage", method.getDeclaringClass());
-		logInfo.put("requestMethod", method.getName());
-		logInfo.put("returnType", method.getReturnType().getName());
-		logInfo.put("requestUrl", request.getRequestURL().toString());
-		logInfo.put("httpMethod", request.getMethod());
-		logInfo.put("requestUri", request.getRequestURI());
-		logInfo.put("requestParam", request.getParameterMap());
-		logger.info(JSON.toJSONString(logInfo));
-	}
+    @Before("webLog()")
+    public void doBefore(JoinPoint joinPoint) {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        Method method = methodSignature.getMethod();
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        Map logInfo = new HashMap();
+        logInfo.put("requestPackage", method.getDeclaringClass());
+        logInfo.put("requestMethod", method.getName());
+        logInfo.put("returnType", method.getReturnType().getName());
+        logInfo.put("requestUrl", request.getRequestURL().toString());
+        logInfo.put("httpMethod", request.getMethod());
+        logInfo.put("requestUri", request.getRequestURI());
+        logInfo.put("requestParam", request.getParameterMap());
+        logger.info(JSON.toJSONString(logInfo));
+    }
 
-	@AfterReturning(pointcut = "webLog()", returning = "ret")
-	public void doAfterReturning(Object ret) throws Throwable {
-		logger.info(JSON.toJSONString(ret));
-	}
+    @AfterReturning(pointcut = "webLog()", returning = "ret")
+    public void doAfterReturning(Object ret) {
+        logger.info(JSON.toJSONString(ret));
+    }
 
-	@AfterThrowing(pointcut = "webLog()", throwing = "exception")
-	public void throwss(JoinPoint joinPoint, Exception exception) {
-		MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-		Method method = methodSignature.getMethod();
-		Map logError = new HashMap();
-		logError.put("requestPackage", method.getDeclaringClass());
-		logError.put("requestMethod", method.getName());
-		logError.put("returnType", method.getReturnType().getName());
-		logError.put("exceptionClass", exception.getClass());
-		logError.put("exceptionCause", exception.getCause());
-		logError.put("exceptionMessage", exception.getMessage());
-		logger.info(JSON.toJSONString(logError));
-	}
+    @AfterThrowing(pointcut = "webLog()", throwing = "exception")
+    public void throwss(JoinPoint joinPoint, Exception exception) {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        Method method = methodSignature.getMethod();
+        Map logError = new HashMap();
+        logError.put("requestPackage", method.getDeclaringClass());
+        logError.put("requestMethod", method.getName());
+        logError.put("returnType", method.getReturnType().getName());
+        logError.put("exceptionClass", exception.getClass());
+        logError.put("exceptionCause", exception.getCause());
+        logError.put("exceptionMessage", exception.getMessage());
+        logger.info(JSON.toJSONString(logError));
+    }
 
 }
