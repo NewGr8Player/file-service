@@ -60,7 +60,7 @@ public class FileResponseData {
 	private Long fileSize;
 
 	/**
-	 * Http URL
+	 * 时间
 	 */
 	@JsonInclude(Include.NON_NULL)
 	private String respDate = DateUtil.getNowDateString(DateUtil.YMD_DASH_WITH_SECONED_24);

@@ -1,4 +1,4 @@
-package com.xavier.aop.log;
+package com.xavier.aop;
 
 import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
@@ -17,9 +17,9 @@ import java.util.Map;
 
 @Aspect
 @Component
-public class LogAspect {
+public class ControllerAspect {
 
-    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(ControllerAspect.class);
 
     @Pointcut("execution(public * com.xavier.api.*Controller.*(..))")
     private void webLog() {
