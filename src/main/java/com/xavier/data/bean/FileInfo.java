@@ -29,9 +29,6 @@ public class FileInfo {
 	private String systemName;
 
 	@TableField
-	private String privateKey;
-
-	@TableField
 	private String permisstionCode;
 
 }
