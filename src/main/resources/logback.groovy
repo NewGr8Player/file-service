@@ -100,4 +100,4 @@ appender("LOG_DB", DBAppender) {
         password = "root"
     }
 }
-root(INFO, ["STDOUT", "TRACE_FILE", "INFO_FILE", "DEBUG_FILE", "WARN_FILE", "ERROR_FILE", "LOG_DB"])
+root(INFO, ["STDOUT", "TRACE_FILE", "INFO_FILE", "DEBUG_FILE", "WARN_FILE", "ERROR_FILE"])

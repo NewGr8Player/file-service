@@ -15,22 +15,11 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        logger.info("新增的时候干点不可描述的事情");
-        /* 以下是简单的Demo 获取并填值 */
-		/*Object lastUpdateNameId = metaObject.getValue("lastUpdateNameId");
-		Object lastUpdateTime = metaObject.getValue("lastUpdateTime");
-		//获取当前登录用户
-		SysUser user = (SysUser)SecurityUtils.getSubject().getPrincipal();
-		if (null == lastUpdateNameId) {
-			metaObject.setValue("lastUpdateNameId", user.getId());
-		}
-		if (null == lastUpdateTime) {
-			metaObject.setValue("lastUpdateTime", new Date());
-		}*/
+        logger.info("新增:" + metaObject.toString());
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        logger.info("更新的时候干点不可描述的事情");
+        logger.info("更新:" + metaObject.toString());
     }
 }

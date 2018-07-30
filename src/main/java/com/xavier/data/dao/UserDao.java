@@ -1,15 +1,14 @@
 package com.xavier.data.dao;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xavier.data.bean.FileInfo;
+import com.xavier.data.bean.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * FileInfo Mappoer
+ * User Mapper
  *
- * @author NewGr8Player
+ * @author NewGr8player
  */
 @Mapper
-public interface FileInfoDao extends BaseMapper<FileInfo>{
-
+public interface UserDao extends BaseMapper<User> {
 }

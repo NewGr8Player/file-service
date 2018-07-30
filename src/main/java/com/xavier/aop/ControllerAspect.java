@@ -1,6 +1,8 @@
 package com.xavier.aop;
 
 import com.alibaba.fastjson.JSON;
+import com.xavier.config.FileResponseData;
+import com.xavier.data.bean.FileInfo;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -44,6 +46,9 @@ public class ControllerAspect {
 
     @AfterReturning(pointcut = "webLog()", returning = "ret")
     public void doAfterReturning(Object ret) {
+        if(null != ret){
+            FileInfo fileInfo = new FileInfo();//TODO 保存文件时将数据存入数据库
+        }
         logger.info(JSON.toJSONString(ret));
     }
 

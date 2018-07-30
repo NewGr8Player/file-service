@@ -2,9 +2,8 @@ package com.xavier.data.bean;
 
 
 import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.xavier.data.bean.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +19,35 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName(value = "t_file_info")
-public class FileInfo {
+public class FileInfo extends BaseEntity {
 
-	@TableId(type = IdType.UUID)
-	private String id;
+	/**
+	 * 系统代码
+	 */
+	@TableField(value = "system_code")
+	private String systemCode;
 
-	@TableField
-	private String systemName;
+	/**
+	 * 文件路径[保存后]
+	 */
+	@TableField(value = "file_path")
+	private String filePath;
 
-	@TableField
-	private String permisstionCode;
+	/**
+	 * 文件名称[保存前]
+	 */
+	@TableField(value = "file_name")
+	private String fileName;
 
+	/**
+	 * 文件大小
+	 */
+	@TableField(value = "file_size")
+	private Long fileSize;
+
+	/**
+	 * 文件类型
+	 */
+	@TableField(value = "file_type")
+	private String fileType;
 }
