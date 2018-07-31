@@ -3,7 +3,10 @@ package com.xavier.data.bean;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.xavier.data.bean.base.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 账户信息
@@ -14,7 +17,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
 @TableName(value = "t_system_info")
 public class User extends BaseEntity {
 
@@ -35,4 +37,5 @@ public class User extends BaseEntity {
 	 */
 	@TableField(value = "private_key")
 	private String privateKey;
+
 }

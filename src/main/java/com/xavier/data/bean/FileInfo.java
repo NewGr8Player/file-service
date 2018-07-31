@@ -50,4 +50,5 @@ public class FileInfo extends BaseEntity {
 	 */
 	@TableField(value = "file_type")
 	private String fileType;
+
 }

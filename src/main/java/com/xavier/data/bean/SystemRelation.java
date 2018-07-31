@@ -3,7 +3,10 @@ package com.xavier.data.bean;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.xavier.data.bean.base.BaseEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 系统间关系，子系统的数据，父系统可以查看
@@ -14,7 +17,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
 @TableName(value = "t_system_relation")
 public class SystemRelation extends BaseEntity {
 
@@ -29,4 +31,16 @@ public class SystemRelation extends BaseEntity {
 	 */
 	@TableField(value = "system_code")
 	private String systemCode;
+
+	/**
+	 * 数据操作权限
+	 * <ul>
+	 * <li>R : Read</li>
+	 * <li>W : Write</li>
+	 * <li>RW : Read and Write</li>
+	 * </ul>
+	 */
+	@TableField(value = "operate_permission")
+	private String operatePermission;
+
 }
